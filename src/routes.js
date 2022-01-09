@@ -1,9 +1,12 @@
 import NotFoundPage from './pages/NotFoundPage.vue';
-import TodoListPage from './pages/todo/TodoListPage.vue';
+import CategoryListPage from './pages/todo/CategoryListPage.vue';
+import CategoryPage from './pages/todo/CategoryPage.vue';
 
 const routes = [
-    { path: '/', redirect: '/list' },
-    { path: '/list', component: TodoListPage },
+    { path: '/', redirect: '/categories' },
+    { path: '/categories', component: CategoryListPage },
+    { path: '/category/:id', component: CategoryPage },
+    { path: '/:notFound(.*)', component: NotFoundPage }
     // {
     //     path: '/coaches/:id',
     //     component: CoachDetail,
@@ -15,7 +18,6 @@ const routes = [
     // { path: '/register', component: CoachRegistation },
     // { path: '/requests', component: RequestsReceived },
     // { path: '/auth', component: UserAuth },
-    { path: '/:notFound(.*)', component: NotFoundPage }
 ]
 
 export default routes;
