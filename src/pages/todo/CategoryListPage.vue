@@ -1,32 +1,47 @@
 <template>
   <div class="body">
     <div class="search">
-      <input type="text" placeholder="Search" />
+      <form @submit.prevent="submit">
+        <input type="text" placeholder="Add Category" v-model="category" />
+        <button>Submit</button>
+      </form>
     </div>
     <ul class="list">
       <li v-for="category in listOfCategories" :key="category.id" class="item">
-        <router-link :to="getUrl(category)">{{ getName(category) }}</router-link>
+        <router-link :to="getUrl(category)">{{
+          getName(category)
+        }}</router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { v4 as uuid } from "uuid";
+
 export default {
   data() {
     return {
-      listOfCategories: [
-        {
-          name: "groceries",
-          id: 1,
-        },
-        { name: "saturday", id: 2 },
-      ],
+      category: "",
+      listOfCategories: [],
     };
+  },
+  mounted() {
+    this.listOfCategories = JSON.parse(localStorage.getItem('animated_basson') || '[]');
   },
   methods: {
     getName: (v) => v.name.toUpperCase(),
-    getUrl: (v) => `/category/${v.id}`
+    getUrl: (v) => `/category/${v.id}`,
+    submit(v) {
+      const existing = JSON.parse(localStorage.getItem("animated_basson") || '[]');
+      console.log('before', existing)
+
+      const newItem = { id: uuid(), name: this.category };
+      existing.push(newItem);
+      localStorage.setItem(`animated_basson`, JSON.stringify(existing));
+
+      console.log('after',localStorage.getItem("to_do"));
+    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 {
   "name": "vue-cli",
   "description": "A Vue.js project",
-  "author": "Maximilian Schwarzmüller <mblacky0@gmail.com>",
+  "author": "lala@tutanota.com",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "bootstrap": "^3.3.7",
+    "uuid": "^8.3.2",
     "vue": "^2.0.1",
     "vue-router": "^3.5.3"
   },
