@@ -1,5 +1,5 @@
 export default {
     addToListOfCategories(context, category) {
-        context.commit('addItem', category);
+        context.commit('addToListOfCategories', category);
     }
 }

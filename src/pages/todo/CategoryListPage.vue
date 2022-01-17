@@ -6,15 +6,9 @@
         <button>Submit</button>
       </form>
     </div>
-    <ul class="list">
-      <li
-        v-for="category in getListOfCategories"
-        :key="category.id"
-        class="item"
-      >
-        <router-link :to="getUrl(category)">{{
-          getName(category)
-        }}</router-link>
+    <ul v-if="listOfCategories" class="list">
+      <li  v-for="category in listOfCategories" :key="category.id" class="item">
+        <router-link :to="getUrl(category)">{{getName(category)}}</router-link>
       </li>
     </ul>
   </div>
@@ -22,42 +16,28 @@
 
 <script>
 import { v4 as uuid } from "uuid";
-import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       category: "",
-      // listOfCategories: [],
+      listOfCategories: [],
     };
   },
-  // mounted() {
-  //   // this.listOfCategories = JSON.parse(localStorage.getItem('animated_basson') || '[]');
-  // },
-  // computed: {
-  //   ...mapGetters("auth", ["getListOfCategories"]),
-  // },
-  mapGetters() {
-    return { auth: ["getListOfCategories"] };
+  mounted () {
+    this.listOfCategories =  this.$store.getters['categories/getListOfCategories'].listOfCategories
   },
   mapActions() {
     return {
-      auth: { addToListOfCategories: "addToListOfCategories" },
+      addToListOfCategories: "addToListOfCategories",
     };
   },
   methods: {
-    getName: (v) => v.name.toUpperCase(),
+    getName: (v) => v?.name?.toUpperCase(),
     getUrl: (v) => `/category/${v.id}`,
-    submit(v) {
-      const newItem = { id: uuid(), name: this.category };
-      this.$store.dispatch("addToListOfCategories", newItem);
-      // const existing = JSON.parse(localStorage.getItem("animated_basson") || '[]');
-      // console.log('before', existing)
-
-      // existing.push(newItem);
-      // localStorage.setItem(`animated_basson`, JSON.stringify(existing));
-
-      // console.log('after',localStorage.getItem("to_do"));
+    async submit() {
+      await this.$store.dispatch("categories/addToListOfCategories", { id: uuid(), name: this.category });
+      this.listOfCategories =  await this.$store.getters['categories/getListOfCategories'].listOfCategories
     },
   },
 };
@@ -88,7 +68,9 @@ export default {
   width: 90%;
   padding: 12px 10px;
   margin: 10px auto;
-  /* background-color: red; */
+  background-color: #ddd;
+  border-radius: 4px;
+  line-height: 3;
   list-style-type: none;
 }
 </style>
