@@ -21,4 +21,20 @@ describe('store/categories/__tests__/getters.spec.js', () => {
             expect(actual).toEqual(expected);
         });
     });
+    describe('getListOfTodosFromCategoryId', () => {
+        it('should update state.listOfTodos with localStorage', () => {
+            // Arrange
+            const expected = { "categoryOfTodos": [{ "id": "categoryID", "name": "correctName" }], "listOfCategories": [{ "id": "categoryID", "name": "correctName" }, { "id": "wrongCategoryId", "name": "wrongName" }] };
+            const categoryId = 'categoryID';
+            const mockGetters = {
+                getListOfCategories: jest.fn().mockImplementationOnce(() => ({ listOfCategories: [{ 'id': categoryId, name: 'correctName' }, { id: 'wrongCategoryId', name: 'wrongName' }] }))
+            };
+
+            // Act
+            const actual = getters.getListOfTodosFromCategoryId({}, mockGetters)(categoryId);
+
+            // Assert
+            expect(actual).toEqual(expected);
+        });
+    });
 });

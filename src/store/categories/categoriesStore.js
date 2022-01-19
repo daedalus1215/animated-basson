@@ -7,6 +7,7 @@ const store = {
     state() {
         return {
             listOfCategories: [],
+            categoryOfTodos: null
         }
     },
     mutations,
