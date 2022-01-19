@@ -1,0 +1,1 @@
+export const STORAGE_LIST_OF_CATEGORIES = 'animated_basson';
