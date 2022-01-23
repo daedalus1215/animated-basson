@@ -7,6 +7,7 @@ describe('src/store/categories/__tests__/categoriesStore.spec.js', () => {
             const expected = {
                 "actions": {
                     "addToListOfCategories": expect.any(Function),
+                    "addTodoToCategory": expect.any(Function),
                 },
                 "getters": {
                     "getListOfCategories": expect.any(Function),
@@ -14,8 +15,8 @@ describe('src/store/categories/__tests__/categoriesStore.spec.js', () => {
                 },
                 "mutations": {
                     "addToListOfCategories": expect.any(Function),
+                    "addTodoToCategory": expect.any(Function),
                 },
-                "namespaced": true,
                 "state": expect.any(Function),
             };
             // Act

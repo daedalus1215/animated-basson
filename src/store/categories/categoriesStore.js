@@ -3,11 +3,11 @@ import actions from './actions';
 import getters from './getters';
 
 const store = {
-    namespaced: true,
+    // namespaced: true,
     state() {
         return {
             listOfCategories: [],
-            categoryOfTodos: null
+            currentCategory: null
         }
     },
     mutations,
