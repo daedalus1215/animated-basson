@@ -25,7 +25,7 @@ export default {
     };
   },
   mounted () {
-    this.listOfCategories =  this.$store.getters['categories/getListOfCategories'].listOfCategories
+    this.listOfCategories =  this.$store.getters['getListOfCategories'].listOfCategories
   },
   mapActions() {
     return {
@@ -36,8 +36,8 @@ export default {
     getName: (v) => v?.name?.toUpperCase(),
     getUrl: (v) => `/category/${v.id}`,
     async submit() {
-      await this.$store.dispatch("categories/addToListOfCategories", { id: uuid(), name: this.category });
-      this.listOfCategories =  await this.$store.getters['categories/getListOfCategories'].listOfCategories
+      await this.$store.dispatch("addToListOfCategories", { id: uuid(), name: this.category, todos: [] });
+      this.listOfCategories =  await this.$store.getters['getListOfCategories'].listOfCategories
     },
   },
 };
