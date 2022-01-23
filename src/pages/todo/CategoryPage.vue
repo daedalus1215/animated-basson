@@ -23,15 +23,13 @@ export default {
     return {
       id: this.$route.params.id,
       addTodo: null,
-      currentCategory: [],
+      currentCategory: {name: ''},
       todos: [],
     };
   },
   mounted() {
     console.log("CategoryPage - mounted - getters", this.$store.getters);
-    this.currentCategory = this.$store.getters["getListOfTodosFromCategoryId"](
-      this.id
-    );
+    this.currentCategory = this.$store.getters['getListOfTodosFromCategoryId'](this.id);
     console.log('currentCategory', this.currentCategory)
     this.todos = this.currentCategory.todos;
     console.log("CategoryPage - mounted - todos", this.todos);
