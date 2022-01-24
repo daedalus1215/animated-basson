@@ -38,8 +38,9 @@ export default {
     async submit() {
       await this.$store.dispatch("addToListOfCategories", { id: uuid(), name: this.category, todos: [] });
       console.log('check', this.$store)
-      this.listOfCategories = await this.$store.getters['getListOfCategories']
+      this.listOfCategories = this.$store.getters['getListOfCategories']
       console.log('listOfCategories', this.listOfCategories)
+      this.category = '';
     },
   },
 };
