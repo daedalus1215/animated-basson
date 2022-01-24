@@ -42,11 +42,12 @@ export default {
     console.log("CategoryPage - mounted - todos", this.todos);
   },
   methods: {
-    deleteTodo(todoId) {
-      this.$store.dispatch("deleteTodoInCategory", {
+    async deleteTodo(todoId) {
+      await this.$store.dispatch("deleteTodoInCategory", {
         todoId,
         categoryId: this.id,
       });
+      this.todos = this.$store.getters.getListOfTodosFromCategoryId(this.id)?.todos || [];
     },
     titleCase(category) {
       if (category?.name) {
