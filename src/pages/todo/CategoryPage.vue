@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>category page {{ titleCase(currentCategory.name) }}</h1>
+    <h1>category page {{ titleCase(currentCategory) }}</h1>
     <div class="search">
       <form @submit.prevent="submit">
         <input type="text" placeholder="Add Todo" v-model="addTodo" />
@@ -9,7 +9,8 @@
     </div>
     <ul v-if="todos.length > 0" class="list">
       <li v-for="todo in todos" :key="todo.id" class="item">
-        {{ todo.description }}
+        <button class="todoDeleteButton" @click="deleteTodo(todo.id)">X</button>
+        <span class="todoDescription">{{ todo.description }}</span>
       </li>
     </ul>
   </div>
@@ -23,26 +24,40 @@ export default {
     return {
       id: this.$route.params.id,
       addTodo: null,
-      currentCategory: {name: ''},
+      currentCategory: { name: "" },
       todos: [],
     };
   },
   mounted() {
     console.log("CategoryPage - mounted - getters", this.$store.getters);
-    this.currentCategory = this.$store.getters['getListOfTodosFromCategoryId'](this.id);
-    console.log('currentCategory', this.currentCategory)
-    this.todos = this.currentCategory.todos;
+    this.currentCategory = this.$store.getters.getListOfTodosFromCategoryId(
+      this.id
+    );
+    console.log(
+      "CategoryPage - getters [getListOfTodosFromCategoryId]",
+      this.$store.getters.getListOfTodosFromCategoryId(this.id)
+    );
+    console.log("currentCategory", this.currentCategory);
+    this.todos = this.currentCategory?.todos || [];
     console.log("CategoryPage - mounted - todos", this.todos);
   },
   methods: {
-    titleCase(str) {
-      return str
-        ?.toLowerCase()
-        .split(" ")
-        .map(function (word) {
-          return word.charAt(0).toUpperCase() + word.slice(1);
-        })
-        .join(" ");
+    deleteTodo(todoId) {
+      this.$store.dispatch("deleteTodoInCategory", {
+        todoId,
+        categoryId: this.id,
+      });
+    },
+    titleCase(category) {
+      if (category?.name) {
+        return category.name
+          ?.toLowerCase()
+          .split(" ")
+          .map(function (word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+          })
+          .join(" ");
+      }
     },
     async submit() {
       await this.$store.dispatch("addTodoToCategory", {
@@ -58,3 +73,26 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+ul {
+  background-color: coral;
+  margin: 10px;
+  padding: 10px;
+}
+li {
+  list-style: none;
+  margin: 10px;
+  padding: 10px;
+  background-color: cadetblue;
+}
+.todoDescription {
+  width: 200px;
+  margin: 10px;
+}
+.todoDeleteButton {
+  width: 25px;
+  height: 25px;
+  margin: 10px;
+}
+</style>
