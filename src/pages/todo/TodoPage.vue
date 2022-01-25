@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>category page {{ titleCase(currentCategory) }}</h1>
+    <h2>Todo: {{ titleCase(currentCategory) }}</h2>
     <div class="search">
       <form @submit.prevent="submit">
         <input type="text" placeholder="Add Todo" v-model="addTodo" />
@@ -8,7 +8,7 @@
       </form>
     </div>
     <ul v-if="todos.length > 0" class="list">
-      <li v-for="todo in todos" :key="todo.id" class="item">
+      <li v-for="todo in todos" :key="todo.id" class="item" draggable="true">
         <button class="todoDeleteButton" @click="deleteTodo(todo.id)">X</button>
         <span class="todoDescription">{{ todo.description }}</span>
       </li>
