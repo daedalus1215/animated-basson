@@ -70,6 +70,7 @@ export default {
         "getListOfTodosFromCategoryId"
       ](this.id);
       this.todos = this.currentCategory.todos;
+      this.addTodo = '';
     },
   },
 };
