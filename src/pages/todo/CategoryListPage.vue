@@ -6,8 +6,16 @@
       </form>
     </div>
     <ul v-if="listOfCategories" class="list">
-      <li  v-for="category in listOfCategories" :key="category.id" class="item">
-        <router-link :to="getUrl(category)">{{getName(category)}}</router-link>
+      <li v-for="category in listOfCategories" :key="category.id" class="item">
+        <button
+          class="categoryDeleteButton"
+          @click="deleteCategory(category.id)"
+        >
+          X
+        </button>
+        <router-link :to="getUrl(category)">{{
+          getName(category)
+        }}</router-link>
       </li>
     </ul>
   </div>
@@ -23,8 +31,8 @@ export default {
       listOfCategories: [],
     };
   },
-  async mounted () {
-    this.listOfCategories =  await this.$store.getters['getListOfCategories'];
+  async mounted() {
+    this.listOfCategories = await this.$store.getters["getListOfCategories"];
   },
   mapActions() {
     return {
@@ -35,11 +43,19 @@ export default {
     getName: (v) => v?.name?.toUpperCase(),
     getUrl: (v) => `/category/${v.id}`,
     async submit() {
-      await this.$store.dispatch("addToListOfCategories", { id: uuid(), name: this.category, todos: [] });
-      console.log('check', this.$store)
-      this.listOfCategories = this.$store.getters['getListOfCategories']
-      console.log('listOfCategories', this.listOfCategories)
-      this.category = '';
+      await this.$store.dispatch("addToListOfCategories", {
+        id: uuid(),
+        name: this.category,
+        todos: [],
+      });
+      console.log("check", this.$store);
+      this.listOfCategories = this.$store.getters["getListOfCategories"];
+      console.log("listOfCategories", this.listOfCategories);
+      this.category = "";
+    },
+    deleteCategory(categoryId) {
+      this.$store.dispatch("deleteCategory", categoryId);
+      this.listOfCategories = this.$store.getters["getListOfCategories"];
     },
   },
 };
@@ -74,5 +90,11 @@ export default {
   border-radius: 4px;
   line-height: 3;
   list-style-type: none;
+}
+
+.categoryDeleteButton {
+  width: 25px;
+  height: 25px;
+  margin: 10px;
 }
 </style>

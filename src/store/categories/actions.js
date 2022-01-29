@@ -7,5 +7,8 @@ export default {
     },
     deleteTodoInCategory(context, todoIdWithCategoryId) {
         context.commit('deleteTodoInCategory', todoIdWithCategoryId);
-    }
+    },
+    deleteCategory(context, categoryId){
+        context.commit('deleteCategory', categoryId);
+    },
 }
