@@ -3,7 +3,6 @@
     <div class="search">
       <form @submit.prevent="submit">
         <input type="text" placeholder="Add Category" v-model="category" />
-        <button>Submit</button>
       </form>
     </div>
     <ul v-if="listOfCategories" class="list">

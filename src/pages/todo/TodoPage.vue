@@ -4,7 +4,6 @@
     <div class="search">
       <form @submit.prevent="submit">
         <input type="text" placeholder="Add Todo" v-model="addTodo" />
-        <button>Submit</button>
       </form>
     </div>
     <ul v-if="todos.length > 0" class="list">
