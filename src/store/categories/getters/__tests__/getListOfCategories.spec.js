@@ -17,7 +17,7 @@ describe('src/store/categories/getters/__tests__/getListOfCategories.spec.js', (
             const expected = [{ 'id': 'item' }, { id: categoryId, name: 'correctName' }];
 
             // Act
-            const actual = getListOfCategories();
+            const actual = getListOfCategories({});
 
             // Assert
             expect(getItemMock).toHaveBeenNthCalledWith(1, STORAGE_LIST_OF_CATEGORIES)
