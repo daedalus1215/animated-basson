@@ -6,6 +6,7 @@ const addToListOfCategories = (state, category) => {
 
     localStorage.setItem(STORAGE_LIST_OF_CATEGORIES, JSON.stringify(existing));
     state.listOfCategories = existing
+    return state;
 }
 
 export default addToListOfCategories;
