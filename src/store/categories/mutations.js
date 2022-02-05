@@ -45,5 +45,18 @@ export default {
         localStorage.removeItem(STORAGE_LIST_OF_CATEGORIES);
         localStorage.setItem(STORAGE_LIST_OF_CATEGORIES, JSON.stringify(remainingCategories));
         state.listOfCategories = remainingCategories;
+    },
+    updateCategoryName(state, category) {
+        //@TODO: Write a test
+        const allCategories = getCategories();
+        const currentCategory = allCategories.find(item => item.id === category.id);
+        const otherCategories = allCategories.filter(item => item.id !== category.id);
+
+        currentCategory.name = category.name;
+        otherCategories.push(currentCategory);
+
+        localStorage.setItem(STORAGE_LIST_OF_CATEGORIES, JSON.stringify(otherCategories));
+        state.listOfCategories = otherCategories;
     }
+
 }

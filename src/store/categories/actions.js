@@ -11,4 +11,7 @@ export default {
     deleteCategory(context, categoryId){
         context.commit('deleteCategory', categoryId);
     },
+    updateCategoryName(context, category){
+        context.commit('updateCategoryName', category);
+    }
 }

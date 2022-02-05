@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2>{{ titleCase(currentCategory) }}</h2>
+    <form @submit.prevent="updateCategoryName" class="formNameChange">
+      <input v-model="todoNameChange" class="title" type="text" />
+    </form>
     <div class="search">
       <form @submit.prevent="submit">
         <input
@@ -29,21 +31,16 @@ export default {
       id: this.$route.params.id,
       addTodo: null,
       currentCategory: { name: "" },
+      todoNameChange: null,
       todos: [],
     };
   },
   mounted() {
-    // console.log("CategoryPage - mounted - getters", this.$store.getters);
     this.currentCategory = this.$store.getters.getListOfTodosFromCategoryId(
       this.id
     );
-    // console.log(
-    //   "CategoryPage - getters [getListOfTodosFromCategoryId]",
-    //   this.$store.getters.getListOfTodosFromCategoryId(this.id)
-    // );
-    // console.log("currentCategory", this.currentCategory);
     this.todos = this.currentCategory?.todos || [];
-    // console.log("CategoryPage - mounted - todos", this.todos);
+    this.todoNameChange = this.currentCategory.name;
   },
   methods: {
     async deleteTodo(todoId) {
@@ -72,6 +69,12 @@ export default {
           .join(" ");
       }
     },
+    async updateCategoryName() {
+      await this.$store.dispatch("updateCategoryName", {
+        id: this.id,
+        name: this.todoNameChange,
+      });
+    },
     async submit() {
       await this.$store.dispatch("addTodoToCategory", {
         categoryId: this.id,
@@ -96,11 +99,24 @@ body {
   display: flex;
   flex-direction: column;
 }
+.formNameChange {
+  background-color: cornflowerblue;
+  margin-bottom: 10px;
+}
+.formNameChange input {
+  background-color: cornflowerblue;
+  color: white;
+}
+.title {
+  font-size: 18px;
+  height: 40px;
+  width: 94%;
+  border: none;
+  margin: 0 5px;
+}
 .addTodo {
   height: 50px;
-  width: 94%;
-  margin: 0 5px;
-  border-radius: 6;
+  width: 99%;
 }
 .addTodo input {
   height: 40px;
