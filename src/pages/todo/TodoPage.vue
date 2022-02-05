@@ -1,9 +1,14 @@
 <template>
   <div>
-    <h2>Todo: {{ titleCase(currentCategory) }}</h2>
+    <h2>{{ titleCase(currentCategory) }}</h2>
     <div class="search">
       <form @submit.prevent="submit">
-        <input type="text" placeholder="Add Todo" v-model="addTodo" />
+        <input
+          type="text"
+          placeholder="Add Todo"
+          v-model="addTodo"
+          class="addTodo"
+        />
       </form>
     </div>
     <ul v-if="todos.length > 0" class="list">
@@ -28,25 +33,33 @@ export default {
     };
   },
   mounted() {
-    console.log("CategoryPage - mounted - getters", this.$store.getters);
+    // console.log("CategoryPage - mounted - getters", this.$store.getters);
     this.currentCategory = this.$store.getters.getListOfTodosFromCategoryId(
       this.id
     );
-    console.log(
-      "CategoryPage - getters [getListOfTodosFromCategoryId]",
-      this.$store.getters.getListOfTodosFromCategoryId(this.id)
-    );
-    console.log("currentCategory", this.currentCategory);
+    // console.log(
+    //   "CategoryPage - getters [getListOfTodosFromCategoryId]",
+    //   this.$store.getters.getListOfTodosFromCategoryId(this.id)
+    // );
+    // console.log("currentCategory", this.currentCategory);
     this.todos = this.currentCategory?.todos || [];
-    console.log("CategoryPage - mounted - todos", this.todos);
+    // console.log("CategoryPage - mounted - todos", this.todos);
   },
   methods: {
     async deleteTodo(todoId) {
-      await this.$store.dispatch("deleteTodoInCategory", {
-        todoId,
-        categoryId: this.id,
-      });
-      this.todos = this.$store.getters.getListOfTodosFromCategoryId(this.id)?.todos || [];
+      if (
+        confirm(
+          `Do you really want to delete ${this.titleCase(this.currentCategory)}`
+        )
+      ) {
+        await this.$store.dispatch("deleteTodoInCategory", {
+          todoId,
+          categoryId: this.id,
+        });
+        this.todos =
+          this.$store.getters.getListOfTodosFromCategoryId(this.id)?.todos ||
+          [];
+      }
     },
     titleCase(category) {
       if (category?.name) {
@@ -69,31 +82,67 @@ export default {
         "getListOfTodosFromCategoryId"
       ](this.id);
       this.todos = this.currentCategory.todos;
-      this.addTodo = '';
+      this.addTodo = "";
     },
   },
 };
 </script>
 
 <style scoped>
+body {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.row {
+  display: flex;
+  flex-direction: column;
+}
+.addTodo {
+  height: 50px;
+  width: 94%;
+  margin: 0 5px;
+  border-radius: 6;
+}
+.addTodo input {
+  height: 40px;
+  border-radius: 3px;
+}
 ul {
-  background-color: coral;
+  /* background-color: coral; */
   margin: 10px;
   padding: 10px;
 }
-li {
-  list-style: none;
-  margin: 10px;
-  padding: 10px;
-  background-color: cadetblue;
+.list {
+  border-radius: 3px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: scroll;
+}
+.item {
+  height: 60px;
+  background-color: #ddd;
+  border-radius: 4px;
+  line-height: 3;
+  display: flex;
+  padding: 0;
+  margin: 5px 0px;
+}
+.item a {
+  text-decoration: none;
+  padding: 0;
+  margin: auto 10px;
+  width: 80%;
 }
 .todoDescription {
-  width: 200px;
-  margin: 10px;
+  padding: 0;
+  margin: auto 10px;
+  width: 80%;
 }
 .todoDeleteButton {
   width: 25px;
   height: 25px;
-  margin: 10px;
+  padding: 0;
+  border-radius: 4px;
+  margin: auto 10px;
 }
 </style>

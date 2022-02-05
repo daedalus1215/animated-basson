@@ -40,7 +40,7 @@ export default {
     };
   },
   methods: {
-    getName: (v) => v?.name?.toUpperCase(),
+    getName: (v) => v?.name,
     getUrl: (v) => `/category/${v.id}`,
     async submit() {
       await this.$store.dispatch("addToListOfCategories", {
@@ -48,14 +48,22 @@ export default {
         name: this.category,
         todos: [],
       });
-      console.log("check", this.$store);
+      // console.log("check", this.$store);
       this.listOfCategories = this.$store.getters["getListOfCategories"];
-      console.log("listOfCategories", this.listOfCategories);
+      // console.log("listOfCategories", this.listOfCategories);
       this.category = "";
     },
     deleteCategory(categoryId) {
-      this.$store.dispatch("deleteCategory", categoryId);
-      this.listOfCategories = this.$store.getters["getListOfCategories"];
+      if (
+        confirm(
+          `Do you really want to delete ${this.getName(
+            this.listOfCategories.find((c) => c.id === categoryId)
+          )}`
+        )
+      ) {
+        this.$store.dispatch("deleteCategory", categoryId);
+        this.listOfCategories = this.$store.getters["getListOfCategories"];
+      }
     },
   },
 };
@@ -65,36 +73,55 @@ export default {
 .body {
   margin: auto;
   /* background-color: black; */
+  display: flex;
+  flex-direction: column;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
-
 .search {
   height: 50px;
-  margin: 0 auto;
+  margin: 0 5px;
   border-radius: 6;
 }
 .search input {
   height: 40px;
+  width: 98%;
   border-radius: 3px;
 }
 .list {
-  /* background-color: green; */
-  margin: 0 auto;
   border-radius: 3px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: scroll;
 }
+ul {
+  list-style: none;
+}
+
+ul li::before {
+  content: "\200B";
+}
+
 .item {
-  height: 40px;
-  width: 90%;
-  padding: 12px 10px;
-  margin: 10px auto;
+  height: 60px;
   background-color: #ddd;
   border-radius: 4px;
   line-height: 3;
-  list-style-type: none;
+  display: flex;
+  padding: 0;
+  margin: 5px 0px;
 }
-
+.item a {
+  text-decoration: none;
+  padding: 0;
+  margin: auto 10px;
+  width: 80%;
+}
 .categoryDeleteButton {
   width: 25px;
   height: 25px;
-  margin: 10px;
+  padding: 0;
+  border-radius: 4px;
+  margin: auto 10px;
 }
 </style>

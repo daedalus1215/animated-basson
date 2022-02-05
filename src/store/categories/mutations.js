@@ -1,5 +1,5 @@
 import { getCategories, STORAGE_LIST_OF_CATEGORIES } from "../constants";
-import getListOfTodosFromCategoryId from "./getters/getListOfTodosFromCategoryId";
+// import getListOfTodosFromCategoryId from "./getters/getListOfTodosFromCategoryId";
 import deleteTodoFromCategories from "./mutations/deleteTodoFromCategories";
 // import addTodoToCategory from "./mutations/addTodoToCategory";
 // import addToListOfCategories from "./mutations/addToListOfCategories";
@@ -7,9 +7,9 @@ import deleteTodoFromCategories from "./mutations/deleteTodoFromCategories";
 
 export default {
     deleteTodoInCategory: (state, todoIdWithCategoryId) => {
-        console.log('deleteTodoInCategory - todoIdWithCategoryId', todoIdWithCategoryId);
-        console.log('deleteTodoInCategory - getCategories()', getCategories());
-        console.log('deleteTodoInCategory - getters - ', getListOfTodosFromCategoryId(state)(todoIdWithCategoryId.categoryId));
+        // console.log('deleteTodoInCategory - todoIdWithCategoryId', todoIdWithCategoryId);
+        // console.log('deleteTodoInCategory - getCategories()', getCategories());
+        // console.log('deleteTodoInCategory - getters - ', getListOfTodosFromCategoryId(state)(todoIdWithCategoryId.categoryId));
         deleteTodoFromCategories(todoIdWithCategoryId.todoId, todoIdWithCategoryId.categoryId)
     },
     addToListOfCategories: (state, category) => {
