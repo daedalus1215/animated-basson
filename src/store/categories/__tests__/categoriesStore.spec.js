@@ -8,6 +8,8 @@ describe('src/store/categories/__tests__/categoriesStore.spec.js', () => {
                 "actions": {
                     "addToListOfCategories": expect.any(Function),
                     "addTodoToCategory": expect.any(Function),
+                    "deleteCategory": expect.any(Function),
+                    "deleteTodoInCategory": expect.any(Function),
                 },
                 "getters": {
                     "getListOfCategories": expect.any(Function),
@@ -16,6 +18,8 @@ describe('src/store/categories/__tests__/categoriesStore.spec.js', () => {
                 "mutations": {
                     "addToListOfCategories": expect.any(Function),
                     "addTodoToCategory": expect.any(Function),
+                    "deleteCategory": expect.any(Function),
+                    "deleteTodoInCategory": expect.any(Function),
                 },
                 "state": expect.any(Function),
             };
