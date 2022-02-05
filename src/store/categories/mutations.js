@@ -8,7 +8,7 @@ import deleteTodoFromCategories from "./mutations/deleteTodoFromCategories";
 export default {
     deleteTodoInCategory: (state, todoIdWithCategoryId) => {
         // console.log('deleteTodoInCategory - todoIdWithCategoryId', todoIdWithCategoryId);
-        // console.log('deleteTodoInCategory - getCategories()', getCategories());
+        // conso.log('deleteTodoInCategory - getCategories()', getCategories());
         // console.log('deleteTodoInCategory - getters - ', getListOfTodosFromCategoryId(state)(todoIdWithCategoryId.categoryId));
         deleteTodoFromCategories(todoIdWithCategoryId.todoId, todoIdWithCategoryId.categoryId)
     },
