@@ -18,13 +18,16 @@
         }}</router-link>
       </li>
     </ul>
+    <Toast></Toast>
   </div>
 </template>
 
 <script>
 import { v4 as uuid } from "uuid";
+import Toast from '../../components/Toast.vue';
 
 export default {
+  components: {Toast},
   data() {
     return {
       category: "",
