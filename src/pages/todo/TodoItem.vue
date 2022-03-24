@@ -3,6 +3,7 @@
     <input
       type="checkbox"
       class="todoCheckboxToggle"
+      v-bind:checked="isChecked"
       @click="todoCheckboxToggle(todoId)"
     />
     <span class="todoDescription">{{ description }}</span>
@@ -18,6 +19,7 @@ export default {
   },
   data() {
     return {
+        isChecked: false,
     };
   },
   methods: {
@@ -25,6 +27,7 @@ export default {
       await this.$store.dispatch("todoCheckboxToggle", {
         todoId,
         categoryId: this.id,
+        isChecked: this.isChecked
       });
       this.todos =
         this.$store.getters.getListOfTodosFromCategoryId(this.id)?.todos || [];
