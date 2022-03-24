@@ -48,9 +48,7 @@ export default {
         name: this.category,
         todos: [],
       });
-      // console.log("check", this.$store);
       this.listOfCategories = this.$store.getters["getListOfCategories"];
-      // console.log("listOfCategories", this.listOfCategories);
       this.category = "";
     },
     deleteCategory(categoryId) {
