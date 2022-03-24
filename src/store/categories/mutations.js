@@ -7,15 +7,11 @@ import deleteTodoFromCategories from "./mutations/deleteTodoFromCategories";
 
 export default {
     deleteTodoInCategory: (state, todoIdWithCategoryId) => {
-        // console.log('deleteTodoInCategory - todoIdWithCategoryId', todoIdWithCategoryId);
-        // conso.log('deleteTodoInCategory - getCategories()', getCategories());
-        // console.log('deleteTodoInCategory - getters - ', getListOfTodosFromCategoryId(state)(todoIdWithCategoryId.categoryId));
         deleteTodoFromCategories(todoIdWithCategoryId.todoId, todoIdWithCategoryId.categoryId)
     },
     addToListOfCategories: (state, category) => {
         const existing = getCategories();
         existing.push(category);
-        console.log('existing', existing)
 
         localStorage.setItem(STORAGE_LIST_OF_CATEGORIES, JSON.stringify(existing));
         state.listOfCategories = existing;
