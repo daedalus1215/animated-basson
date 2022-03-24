@@ -2,6 +2,8 @@ import deleteTodoFromCategories from "./mutations/deleteTodoFromCategories";
 import deleteCategory from "./mutations/deleteCategory";
 import addTodoToCategory from "./mutations/addTodoToCategory";
 import addToListOfCategories from "./mutations/addToListOfCategories";
+import updateTodoCheckboxStatus from "./mutations/updateTodoCheckboxStatus";
+import updateCategoryName from "./mutations/updateCategoryName";
 
 export default {
     deleteTodoInCategory: (state, todoIdWithCategoryId) => {
@@ -17,6 +19,9 @@ export default {
         deleteCategory(state, categoryId);
     },
     updateCategoryName(state, category) {
-        this.updateCategoryName(state, category);
+        updateCategoryName(state, category);
+    },
+    updateTodoCheckboxStatus(state, todo) {
+        updateTodoCheckboxStatus(state, todo);
     }
 }

@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     async todoCheckboxToggle(todoId) {
-      await this.$store.dispatch("todoCheckboxToggle", {
+      await this.$store.dispatch("updateTodoCheckboxStatus", {
         todoId,
         categoryId: this.id,
         isChecked: this.isChecked
