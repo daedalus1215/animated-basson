@@ -22,6 +22,6 @@ export default {
         updateCategoryName(state, category);
     },
     updateTodoCheckboxStatus(state, todo) {
-        updateTodoCheckboxStatus(state, todo);
+        updateTodoCheckboxStatus(todo);
     }
 }

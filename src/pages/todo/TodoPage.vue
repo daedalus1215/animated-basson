@@ -17,7 +17,7 @@
       <li v-for="todo in todos" :key="todo.id" class="item" draggable="true">
         <!-- <button class="todoDeleteButton" @click="deleteTodo(todo.id)">X</button> -->
         <!-- @TODO: Need to pass down the checked status  -->
-        <todo-item :description="todo.description" :todoId="todo.id" :key="todo.id" />
+        <todo-item :description="todo.description" :todoId="todo.id" :key="todo.id" :isChecked="todo.isChecked" :categoryId="currentCategory.id"/>
       </li>
     </ul>
   </div>

@@ -4,7 +4,7 @@
       type="checkbox"
       class="todoCheckboxToggle"
       v-bind:checked="isChecked"
-      @click="todoCheckboxToggle(todoId)"
+      @click="todoCheckboxToggle"
     />
     <span class="todoDescription">{{ description }}</span>
   </div>
@@ -16,21 +16,20 @@ export default {
   props: {
     description: String,
     todoId: String,
+    isChecked: Boolean,
+    categoryId: String,
   },
   data() {
-    return {
-        isChecked: false,
-    };
+    return {};
   },
   methods: {
-    async todoCheckboxToggle(todoId) {
-      await this.$store.dispatch("updateTodoCheckboxStatus", {
-        todoId,
-        categoryId: this.id,
-        isChecked: this.isChecked
-      });
-      this.todos =
-        this.$store.getters.getListOfTodosFromCategoryId(this.id)?.todos || [];
+    async todoCheckboxToggle(e) {
+      await this.$store
+        .dispatch("updateTodoCheckboxStatus", {
+          todoId: this.todoId,
+          isChecked: e.target.checked,
+          categoryId: this.categoryId,
+        })
     },
   },
 };
