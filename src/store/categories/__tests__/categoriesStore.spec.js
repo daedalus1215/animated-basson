@@ -10,6 +10,8 @@ describe('src/store/categories/__tests__/categoriesStore.spec.js', () => {
                     "addTodoToCategory": expect.any(Function),
                     "deleteCategory": expect.any(Function),
                     "deleteTodoInCategory": expect.any(Function),
+                    "updateCategoryName": expect.any(Function),
+                    "updateTodoCheckboxStatus": expect.any(Function)
                 },
                 "getters": {
                     "getListOfCategories": expect.any(Function),
@@ -20,6 +22,8 @@ describe('src/store/categories/__tests__/categoriesStore.spec.js', () => {
                     "addTodoToCategory": expect.any(Function),
                     "deleteCategory": expect.any(Function),
                     "deleteTodoInCategory": expect.any(Function),
+                    "updateCategoryName": expect.any(Function),
+                    "updateTodoCheckboxStatus": expect.any(Function)
                 },
                 "state": expect.any(Function),
             };
