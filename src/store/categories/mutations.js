@@ -1,58 +1,22 @@
-import { getCategories, STORAGE_LIST_OF_CATEGORIES } from "../constants";
-// import getListOfTodosFromCategoryId from "./getters/getListOfTodosFromCategoryId";
 import deleteTodoFromCategories from "./mutations/deleteTodoFromCategories";
-// import addTodoToCategory from "./mutations/addTodoToCategory";
-// import addToListOfCategories from "./mutations/addToListOfCategories";
-
+import deleteCategory from "./mutations/deleteCategory";
+import addTodoToCategory from "./mutations/addTodoToCategory";
+import addToListOfCategories from "./mutations/addToListOfCategories";
 
 export default {
     deleteTodoInCategory: (state, todoIdWithCategoryId) => {
         deleteTodoFromCategories(todoIdWithCategoryId.todoId, todoIdWithCategoryId.categoryId)
     },
     addToListOfCategories: (state, category) => {
-        const existing = getCategories();
-        existing.push(category);
-
-        localStorage.setItem(STORAGE_LIST_OF_CATEGORIES, JSON.stringify(existing));
-        state.listOfCategories = existing;
+        addToListOfCategories(state, category);
     },
     addTodoToCategory(state, todoWithCategoryId) {
-        const { categoryId } = todoWithCategoryId;
-
-        const allCategories = getCategories();
-        const currentCategory = allCategories.find(item => item.id === categoryId);
-
-        const allOtherCategories = allCategories
-            .filter(item => item.id !== categoryId);
-
-        const allOtherTodos = currentCategory
-            .todos
-            ?.filter(todoItem => todoItem.id !== todoWithCategoryId.id) || [];
-
-        allOtherTodos.push(todoWithCategoryId);
-        currentCategory.todos = allOtherTodos;
-
-        allOtherCategories.push(currentCategory);
-        localStorage.removeItem(STORAGE_LIST_OF_CATEGORIES);
-        localStorage.setItem(STORAGE_LIST_OF_CATEGORIES, JSON.stringify(allOtherCategories));
+        addTodoToCategory(state, todoWithCategoryId);
     },
     deleteCategory(state, categoryId) {
-        const remainingCategories = getCategories().filter(category => category.id !== categoryId) || [];
-        localStorage.removeItem(STORAGE_LIST_OF_CATEGORIES);
-        localStorage.setItem(STORAGE_LIST_OF_CATEGORIES, JSON.stringify(remainingCategories));
-        state.listOfCategories = remainingCategories;
+        deleteCategory(state, categoryId);
     },
     updateCategoryName(state, category) {
-        //@TODO: Write a test
-        const allCategories = getCategories();
-        const currentCategory = allCategories.find(item => item.id === category.id);
-        const otherCategories = allCategories.filter(item => item.id !== category.id);
-
-        currentCategory.name = category.name;
-        otherCategories.push(currentCategory);
-
-        localStorage.setItem(STORAGE_LIST_OF_CATEGORIES, JSON.stringify(otherCategories));
-        state.listOfCategories = otherCategories;
+        this.updateCategoryName(state, category);
     }
-
 }
