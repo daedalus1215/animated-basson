@@ -1,5 +1,5 @@
 import { setCategories, STORAGE_LIST_OF_CATEGORIES } from "../../constants";
-import getListOfTodosFromCategoryId from "../getters/getListOfTodosFromCategoryId";
+import { getListOfTodosFromCategoryId } from "../getters/index";
 
 const deleteTodoFromCategories = async (todoId, categoryId) => {
     const editCategory = await getListOfTodosFromCategoryId()(categoryId);

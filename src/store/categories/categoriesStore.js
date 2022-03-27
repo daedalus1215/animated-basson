@@ -1,6 +1,6 @@
 import mutations from './mutations';
 import actions from './actions';
-import getters from './getters';
+import categoryGetters from './categoryGetters';
 
 const store = {
     // namespaced: true,
@@ -12,7 +12,7 @@ const store = {
     },
     mutations,
     actions,
-    getters
+    getters:categoryGetters
 }
 
 
