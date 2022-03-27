@@ -17,7 +17,14 @@
       <li v-for="todo in todos" :key="todo.id" class="item" draggable="true">
         <!-- <button class="todoDeleteButton" @click="deleteTodo(todo.id)">X</button> -->
         <!-- @TODO: Need to pass down the checked status  -->
-        <todo-item :description="todo.description" :todoId="todo.id" :key="todo.id" :isChecked="todo.isChecked" :categoryId="currentCategory.id"/>
+        <todo-item
+          :description="todo.description"
+          :todoId="todo.id"
+          :key="todo.id"
+          :isChecked="todo.isChecked"
+          :categoryId="currentCategory.id"
+          :deleteTodo="deleteTodo"
+        />
       </li>
     </ul>
   </div>
@@ -25,7 +32,7 @@
 
 <script>
 import { v4 as uuid } from "uuid";
-import TodoItem from './TodoItem.vue';
+import TodoItem from "./TodoItem.vue";
 
 export default {
   components: { TodoItem },
@@ -47,19 +54,12 @@ export default {
   },
   methods: {
     async deleteTodo(todoId) {
-      if (
-        confirm(
-          `Do you really want to delete ${this.titleCase(this.currentCategory)}`
-        )
-      ) {
-        await this.$store.dispatch("deleteTodoInCategory", {
-          todoId,
-          categoryId: this.id,
-        });
-        this.todos =
-          this.$store.getters.getListOfTodosFromCategoryId(this.id)?.todos ||
-          [];
-      }
+      await this.$store.dispatch("deleteTodoInCategory", {
+        todoId,
+        categoryId: this.id,
+      });
+      this.todos =
+        this.$store.getters.getListOfTodosFromCategoryId(this.id)?.todos || [];
     },
     titleCase(category) {
       if (category?.name) {
