@@ -13,8 +13,8 @@ const addTodoToCategory = (state, todoWithCategoryId) => {
         .todos
         ?.filter(todoItem => todoItem.id !== todoWithCategoryId.id) || [];
 
-    allOtherTodos.push(todoWithCategoryId);
-    currentCategory.todos = allOtherTodos;
+    const newWithExistingTodos = [todoWithCategoryId].concat(allOtherTodos)
+    currentCategory.todos = newWithExistingTodos;
 
     allOtherCategories.push(currentCategory);
     localStorage.removeItem(STORAGE_LIST_OF_CATEGORIES);
